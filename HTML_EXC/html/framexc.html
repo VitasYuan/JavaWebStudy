@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+
+<html>
+	<head>
+		<title>frameset练习</title>
+		<meta content="text/html;charset=UTF-8" http-equiv="Content-Type">
+	</head>
+	<!-- html5中已经不推荐使用frameset，推荐使用方式TBS -->
+	<frameset rows="60,*,80">
+		<frame src="exc01.html"></frame>
+		<frameset cols="60,*,60">
+			<frame src="exc01.html"></frame>
+			<frame src="tableLayout.html" name="table_mid"></frame>
+			<frame src="exc01.html"></frame>
+		</frameset>
+		<frame src="tableLayout.html"></frame>	
+	</frameset>
+</html>
