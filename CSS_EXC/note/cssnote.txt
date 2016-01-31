@@ -1,0 +1,54 @@
+【简介】
+CSS用来修饰页面，三种添加方式
+	1、内嵌样式：通过style属性来设置样式，内嵌样式 只对当前样式有效
+	2、在style标签中写样式样式
+	3、外部链接添加css；在head中添加外部链接css文件
+	【注意】内嵌样式会吧style标签中的样式替换掉；样式使用原则是就近原则，后加载的会吧先加载的覆盖掉
+	【注意】开发中一般用外部css文件写，可以复用
+【选择器】
+	1、id选择器#p2  可以对页面中的某个标签进行设置；使用#来选择
+	2、标签选择器p	会对页面中的所有标签都有效
+	3、累选择器p.p1表示class为p1的p标签；使用.来完成类选择器
+	4、包含选择符div span 指的是p中的所有span标签，会包含div中的所有span
+	5、子对象选择器 div>h2 指的是div中的h2（类）只包含第一季子标签
+	6、分组选择符；#d1，#d3可以同时设定多个标签用逗号进行分隔
+【盒子模型】
+	1、padding是内边框的距离，margin是外边框的距离
+	2、通过父padding和子margin来定位
+	3、有些标签有默认的margin和padding，可以通过*设置所有标签
+	4、可以使用border看标签的范围
+【兼容性问题】
+	1、span和a相类似的文本标签，在HTML中有一些标签仅仅是用来设置文本的，比如a和span对于这两个标签而言，在w3c的
+	标准中默认是不能设置width等样式进行修饰的，所以直接为这些标签设置width是没有用的
+	需要通过设置display为block后才有作用，但是对于ie是有用的。一般不对span设置样式。
+	2、padding对于padding而言，如果一个标签设置了height或者width，此时再进行padding的设置，对于ie而言，padding的值不会
+	加到height或者width中（如果一个div的高度为40.而padding-top：20此时这个div的高度依然是40）；。
+	对于id之外的浏览器，padding的值会加到height或者width中（如果一个div的高度为40.而padding-top：20此时这个div的高度依然是60）。
+	一定不要使用padding进行对齐设置。
+	3、内容一般都放在span里面，span外边再添加一层标签。所有的文本都加span。
+	4、对文本的居中方式：margin：auto仅仅只对IE之外的浏览器可以居中，设置text-align：center对ie有用，同意的居中方式为：
+	{position：absolute；left：50%；margin-left：-width/2;}
+【定位】
+	1、定位有两种absolute和relative两种。绝对定位是针对于父级最近的一个position为absolute的元素进行left、right等定位的，
+	如果父级没有absolute则针对于body定位。相对定位是针对父类元素而言的。当定位为绝对定位时该元素不会再占用之前的空间。
+	2、背景会默认为填充，背景的第一个值设置的是左右，第二个是上下，backgroundpisition
+	
+【习惯设置】
+	1、字体一般为12和14px
+	2、文章前添加点
+	3、除非一个网站中有变化的图片，其他全部都用background（中的图片会保存到缓存，不需要每次都发送请求）；
+【实现float】
+	通过设置li的float为left实现悬浮，里面的元素会自动向左边排列对齐，设置clear：both清除float两边的内容，
+	不然下面的内容会飘上去
+【超链接的样式】
+	1、a:link为默认情况下的超链接
+	2、a:vidited是当链接点击后的效果，对于ie而言，不会自动继承a:link下的效果，所以最好同时设置a:link和a:vidited效果
+	a:hover为鼠标移到链接上的样式
+	当使用了包含的操作符之后，它的加载时间比使用class的加载时间要低，所以此时再来定义一个class的样式，不会吧使用包含的样式覆盖掉
+	
+【练习】
+	1、实现简易小网站
+	2、实现网站首页
+	
+	
+	
