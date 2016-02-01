@@ -1,0 +1,72 @@
+【js简介】
+	1、实现浏览器于用户的简单交互，由于js在不同浏览器上会有差别，所以一般不会直接使用js
+	而是使用js的一些框架来屏蔽浏览器之间的差异。
+	2、jquery、dwz、easyui、EXTjs、dwr等
+	3、添加js代码两种方式：通过src引入js文件，javascript不能使用自结束
+【基本语法】
+	1、对于js而言是没有数据类型的，全部是通过var来定义变量的，一个变量可以完成各种各样的类型变换
+	2、js为解释型语言，没有编译时的静态检查
+	3、当在函数内部没有用var来声明变量时，此变量时全局变量。
+【常用类型】
+	1、Array、boolean等六种
+	2、使用parseInt可以将字符串前几位的数字转换成数字
+	3、对于数组的对象而言，显示的结果是Object类型不会显示Array类型
+	4、在js中0、NaN和undfine是false，（其他）非0都是true，
+	5、当一个变量没有定义值时是undfine
+【简单对象创建】
+	方法一：
+		function Person(name,age){
+			this.name=name;
+			this.age=age;
+			this.address="zj";
+			//如果没有用this声明，那么这个仅仅是局部变量，不是类属性
+			var p=1;
+			//每次创建对象都会创建一个函数对象
+			this.say=function(){
+			alert("123");
+		}
+		}
+		var p1=new Person("zs",22);
+		var x=function(){
+		}
+		function fun(){
+			return 100;
+		}
+		var z=fun;//指向函数
+		var w=fun();调用函数得到返回值
+		//此时x就是一个function；
+		在js中可以使用for in来遍历对象的属性
+		调用属性的两种方法：p1.name和p1[name]
+【常用的对象】
+	1、Date，对于js而言月是从0开始的。
+	2、String对象，没有equels方法，只要值相等就相等
+	3、js中的Array就是java中的list和stack集合
+	4、Number对象和Math对象
+【简单的事件处理】
+	1、onclick="click(this)";
+	2、在js中设置样式均通过xxx.style.xxx="";设置样式
+【js的timer】
+	1、setTimeout("",3000);//只会执行一次，如果希望重复执行需要执行setInterval（）表示每隔一段时间执行函数
+【不常用】
+	1、with(document){
+	//指的是括号中的所有代码都是以document为前缀
+	}
+【javascript的浏览器对象】
+	1、window对象，这个浏览器中的语句全都是以window为前缀的如alert（）=window.alert();window.open()、print()等函数
+	2、Screen对象
+	3、history
+	4、Location对象
+【DOM模型和事件处理】
+	1、document object model
+	2、getElementById、getElementsByTagName、getElementsByName（一般用于获取表单的值）
+	3、获取节点然后做大量操作
+	4、基于某个节点获取标签，可以获取节点的名称、类型和值 （值只对文本节点有用）ah.nodeValue,ah.nodeType,ah.nodeName,在获取文本节点
+	时需要把空格去掉。
+【最佳实践】
+	1、在函数内部定义变量一定要使用var，不然可能会将全局变量覆盖掉
+【练习】
+	1、点击文本字体变大，然后变小
+	2、字体自动变大，点击停止
+	3、点击输入祝福语，弹出新窗口，输入后再父窗口显示输入的祝福语内容，然后关闭子窗口
+	3、找到下一个节点
+	
