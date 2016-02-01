@@ -1,0 +1,47 @@
+@CHARSET "UTF-8";
+
+* {
+	padding: 0px;
+	margin: 0px;
+	font-size: 12px;
+}
+
+#content {
+	width: 868px;
+	border: 1px solid #999;
+}
+
+#curr_channel {
+	height: 39px;
+	background: url("img/content_intro_bg.jpg") repeat-x;
+}
+
+#curr_channel span {
+	color: #fff;
+	position: relative;
+	left: 50px;
+	top: 8px;
+}
+
+table.ct {
+	width: 800px;
+	margin: 15px;
+	border-right: 1px solid #919891;
+	border-bottom: 1px solid #919891;
+}
+
+table.ct td {
+	border-top: 1px solid #919891;
+	border-left: 1px solid #919891;
+	padding: 10px 0px;
+	text-align: center;
+}
+
+table.ct thead {
+	background: #336d9b;
+	color: #fff;
+}
+
+table tr.odd {
+	background: #b3c6d7;
+}
