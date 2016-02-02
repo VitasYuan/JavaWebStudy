@@ -62,11 +62,112 @@
 	3、获取节点然后做大量操作
 	4、基于某个节点获取标签，可以获取节点的名称、类型和值 （值只对文本节点有用）ah.nodeValue,ah.nodeType,ah.nodeName,在获取文本节点
 	时需要把空格去掉。
+	5、绑定时间的另外一种方法：document。getElementById("").onclick=function(event){使用this操作此标签};//这样可以实现html和
+	javascript的解耦。这个函数中默认会有一个event的参数;对于ie而不会自动传递event事件，需要用window.event来获取事件
+	但是FF不支持window.event。通常使用event=event||window.event;来兼容
+	6、第二种绑定带来的问题是，如果将js放在head内，在执行js时还没有渲染html，要使用window.onload=funName;
+【深入理解函数】
+	1、函数定义：
+	方式一：function fn1(){}//函数是一个Function类的实例，在内存中是通过一个键值对存储的
+	方式二：var f2=fn1;以下是通过函数拷贝来完成赋值的，两个引用并没有指向同一个对象
+	//函数虽然是一个对象，但是和对象却有着本质的区别，对象时通过引用的指向来完成对象的赋值的，而函数却是通过对象的拷贝来完成
+	赋值的，对于对象而言，是通过引用的指向来完成赋值的
+	方式三：var fun=Function("number","alert(number)");
+	*在函数中不存在重载,值存在覆盖，后面定义的会覆盖前面定义的
+	2、函数的传值：
+	可以将函数以参数的方式传入函数：function fun(say,name){say(name);}
+	还可以将函数单做返回值如：function fun(){var ref=function(){};return ref;}
+	js数组中的sort函数默认是通过字符串排序的，as.sort(sortBy);(sortBy为比较函数)
+	3、函数的argument和this参数：
+	在函数对象中有一个argument参数，通过这个参数可以获取相应的参数值，这个属性是一个数组，就是传进来的参数值，通过collee来
+	调用自己函数（递归求阶乘）
+	当需要创建一个类的时候，设置类的属性和方法需要通过this关键字来引用，但是特别注意this关键字在调用时会根据不同的调用对象
+	变得不同。不同上下文调用会不同
+	4、函数同样有两个重要的属性，length（表示函数所期望的参数个数）和prototype
+	5、call和apply函数，使用call和apply后，对象中可以不定义方法，通过上下文调用
+【简单对象创建和json】
+	方法一：var person=new Object();
+		 person.name="Leon";
+		 person.say=function(){}
+	在js中并不存在类，所以可以直接通过Object来创建对象，如果使用如以上方式创建无法实现类的复用
+	方法二：json的意思是javascript simple object notation
+		var person={name:"zs",age=23,say:function(){alert(123);}},同样可以创建对象
+		数组
+	方法三：工厂方式定义对象 
+		function createPerson(name,age){
+			var o = new Object();
+			o.name=name;
+			o.age=age;
+			return o;},没有办法检测出对象类型
+	方法四：通过构造函数的方式创建，和基于工厂的创建类似，最大的区别就是函数的名称就是类的名称，按照java的约定第一个字母大写
+		   使用构造函数创建时，在函数内部是通过this关键字来定义属性的，可以通过p.instanceOf检测类型
+		   问题：每一个对象都会有一个方法的拷贝，如果类中的行为很多时，耗费空间
+		 	   可以将行为设置为公共的方法。但是又会破坏函数的封装性，如果有大量方法，会有大量的全局函数
+	方法五：基于原型的创建方式
+		function Person(){}
+		Person.prototype.name="Leon";
+		Person.prototype.age=23;
+		Person.prototype.say=function(){
+			alert(this.name+","+this.age);
+		}
+		基于原型的创建方式可以将属性和方法设置为Person专有的，不能通过window来调用
+【原型内存分析】
+	1、原型是js中非常特殊的一个对象，当一个函数创建之后会随之就产生一个原型对象，当通过这个函数的构造函数创建一个具体的对象
+	后这个具体的对象就会有一个属性指向原型（详细见内存模型图）
+	2、可以通过prototype来扩展已有对象类
+【闭包】
+	1、闭包的作用域，对于通过function fun()来定义的函数，永远都会被最先初始化
+		fun1();//不报错
+		function fun1(){}
+		fun2();//报错
+		以下函数的定义方式是先在内存中创建了一块区域，在通过一个fun2的变量指向这块区域，这快区域的函数刚开始时没名称的
+		所以这种叫做匿名函数
+		var fun2=function(){};
+	2、函数的作用链：在js中当进行函数调用时，会为每一个函数增加一个属性SCOPE，通过这个属性来指向一块内存，这块内存中包含有
+	所有的上下文使用的变量，当在某个函数中调用新函数后，会有一个作用域来执行原有的函数的scope和自己新增加的scope，这样就
+	形成了一个链式结构，这就是js中的作用链
+		function compareObjectFun(prop){
+			return function(obj1,obj2){
+				if(obj1[prop]>obj2[prop])
+					return 1;
+				else if(obj1[prop]<obj2[prop])
+					return -1;
+				else 
+					return 0;
+			}
+		}
+	通过返回函数来扩大函数作用域的方法就是闭包
+	问题：使用闭包虽然可以扩大作用域，但是会占用更多的内存 
+【快作用域和私有变量】
+	1、js中没有快作用域，不管是使用循环还是判断之后，这个变量会一直存在，所以当在全局使用某个变量进行循环或者判断之后，这个变
+	量可能会影响到函数中的变量，所以在特殊情况下不要使用全局变量，而且使用全局变量在作用域链的最上乘，访问时最慢的。解决方式是
+	闭包(function(){})()一定压迫加上括号才能自调用
+	2、通过静态私有变量定义私有变量和通过get和set方法定义变量；方式如下
+		var Person;
+		(function(){
+			var name="";//name在函数调用后就消失，外面没办法调用
+			Person=function(value){
+				name=value;
+			}
+			Person.prototype.setName=function(value){
+				name=value;
+			}
+			Person.prototype.getName=function(){
+				return name;
+			}
+		})();
+		var p1=new Person("aa");
+		p1.setName("aa");
 【最佳实践】
 	1、在函数内部定义变量一定要使用var，不然可能会将全局变量覆盖掉
+	2、将全局变量的代码放到一个匿名函数，并且马上调用匿名函数，这样也可以执行全局代码，但是作用域控制在了括号区域内
 【练习】
 	1、点击文本字体变大，然后变小
 	2、字体自动变大，点击停止
 	3、点击输入祝福语，弹出新窗口，输入后再父窗口显示输入的祝福语内容，然后关闭子窗口
 	3、找到下一个节点
-	
+	4、菜单，当鼠标移到菜单上时展开，移走时收起//会出现事件冒泡问题，在jquery可以解决
+	5、sort按照值、字符等排序
+	6、递归求阶乘
+	7、创建一组用户，用户属性有name：string age：int
+	8、写比较函数，体现函数作用域增大（通过返回函数来扩大作用域的方式就是闭包）
